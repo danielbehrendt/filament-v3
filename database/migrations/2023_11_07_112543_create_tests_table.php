@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->json('categories');
+            $table->string('name');
             $table->timestamps();
         });
     }
