@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->nullableMorphs('configurable');
-            $table->jsonb('payload')->nullable();
+            $table->json('payload')->nullable();
             $table->timestamps();
         });
     }
