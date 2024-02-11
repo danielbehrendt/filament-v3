@@ -30,23 +30,5 @@ class AppServiceProvider extends ServiceProvider
                     DetailsBlock::class,
                 ]);
         });
-
-        /**
-         * Cookie consent
-         */
-        Filament::registerRenderHook(
-            'panels::head.end',
-            fn(): string => Blade::render('@cookieconsentscripts'),
-        );
-
-        Filament::registerRenderHook(
-            'panels::body.end',
-            fn(): string => Blade::render('@cookieconsentview'),
-        );
-
-        FilamentView::registerRenderHook(
-            'panels::auth.login.form.after',
-            fn(): string => Blade::render('@cookieconsentbutton(action: \'reset\', label: \'Cookies\', attributes: [\'id\' => \'reset-button\'])'),
-        );
     }
 }
