@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/css/filament/admin/theme.css',
             ],
             refresh: true,
+            detectTls: 'filament-v3.test',
         }),
     ],
 });

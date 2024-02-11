@@ -59,6 +59,8 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'host' => env('APP_HOST'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -169,6 +171,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\LivewireServiceProvider::class,
     ])->toArray(),
 
     /*

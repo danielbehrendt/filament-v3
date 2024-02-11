@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TestResource\Pages;
-use App\Filament\Resources\TestResource\RelationManagers;
 use App\Models\Test;
 use Filament\Forms;
-use Filament\Forms\Components\Group;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use FilamentTiptapEditor\TiptapEditor;
 
 class TestResource extends Resource
 {
@@ -21,26 +18,21 @@ class TestResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $options = [
+            'a' => 'Butter',
+            'b' => 'Eggs',
+            'c' => 'Flour',
+            'd' => 'Milk',
+        ];
+
         return $form
             ->schema([
-                Forms\Components\Tabs::make('')
-                    ->schema([
-                        Forms\Components\Tabs\Tab::make('Test')
-                            ->schema([
-                                Forms\Components\TextInput::make('name'),
-                                Group::make([
-                                    Group::make([
-                                        Forms\Components\Repeater::make('sections')
-                                            ->schema([
-                                                TiptapEditor::make('text'),
-                                            ])
-                                            ->required()
-                                            ->columnSpanFull(),
-                                    ])->statePath('payload')
-                                ])->relationship('formConfiguration')
-                            ])
-                    ])
-                    ->columnSpanFull(),
+                Forms\Components\Select::make('options')
+                    ->options(self::shuffleAssoc($options))
+                    ->live(),
+                Forms\Components\Radio::class::make('options2')
+                    ->options(self::shuffleAssoc($options))
+                    ->live(),
             ]);
     }
 
@@ -63,12 +55,12 @@ class TestResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            RelationManagers\ItemsRelationManager::class,
-        ];
-    }
+//    public static function getRelations(): array
+//    {
+//        return [
+//            RelationManagers\ItemsRelationManager::class,
+//        ];
+//    }
 
     public static function getPages(): array
     {
@@ -77,5 +69,23 @@ class TestResource extends Resource
             'create' => Pages\CreateTest::route('/create'),
             'edit' => Pages\EditTest::route('/{record}/edit'),
         ];
+    }
+
+    public static function shuffleAssoc($list): array
+    {
+        if (!is_array($list)) {
+            return $list;
+        }
+
+        $keys = array_keys($list);
+        shuffle($keys);
+
+        $random = [];
+
+        foreach ($keys as $key) {
+            $random[$key] = $list[$key];
+        }
+
+        return $random;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\TestResource\RelationManagers;
 
+use App\Filament\TiptapBlocks\DetailsBlock;
+use Awcodes\FilamentTableRepeater\Components\TableRepeater;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -22,13 +24,24 @@ class ItemsRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
-                Forms\Components\Repeater::make('extra_attributes.sections')
+//                TiptapEditor::make('extra_attributes.content')
+//                    ->profile('simple')
+//                    ->output(TiptapOutput::Json)
+//                    ->columnSpanFull(),
+//                Forms\Components\Repeater::make('extra_attributes.sections')
+//                    ->schema([
+//                        TiptapEditor::make('content')
+//                            ->profile('simple')
+//                            ->output(TiptapOutput::Json),
+//                    ])
+//                    ->columnSpanFull(),
+
+                TableRepeater::make('extra_attributes')
                     ->schema([
-                        TiptapEditor::make('content')
-                            ->profile('simple')
-                            ->output(TiptapOutput::Json),
+                        Forms\Components\TextInput::make('name'),
                     ])
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->live(),
             ]);
     }
 
